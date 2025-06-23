@@ -13,8 +13,9 @@ export default function Tareas() {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={{ padding: 16, borderBottomWidth: 1, borderColor: '#eee' }}
-            onPress={() => router.push(`./tareas ${item.id}`)}
+            onPress={() => router.push(`/tareas/${item.id}`)}
           >
+
             <Text style={{ fontSize: 18 }}>{item.titulo}</Text>
           </TouchableOpacity>
         )}

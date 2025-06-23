@@ -1,25 +1,32 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { tareas } from '@/constants/tareas';
+// app/tareas.tsx
 import { FlatList, TouchableOpacity, Text, View } from 'react-native';
+import { useRouter } from 'expo-router';
 
-export default function SubtareasScreen() {
-  const { tareaId } = useLocalSearchParams();
+// Simulamos una lista de tareas
+const tareas = [
+  { id: '1', titulo: 'Estudiar React Native' },
+  { id: '2', titulo: 'Hacer ejercicio' },
+  { id: '3', titulo: 'Leer documentación' },
+];
+
+export default function Tareas() {
   const router = useRouter();
-  const tarea = tareas.find(t => t.id === tareaId);
-
-  if (!tarea) return <Text>Tarea no encontrada</Text>;
 
   return (
     <View style={{ flex: 1, padding: 20 }}>
-      <Text style={{ fontSize: 22, marginBottom: 16 }}>{tarea.titulo}</Text>
       <FlatList
-        data={tarea.subtareas}
-        keyExtractor={item => item.id}
+        data={tareas}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity
-            style={{ padding: 14, borderBottomWidth: 1, borderColor: '#eee' }}          >
-            <Text style={{ fontSize: 16 }}>{item.titulo}</Text>
-            <Text style={{ color: '#888' }}>{item.estado}</Text>
+            style={{
+              padding: 16,
+              borderBottomWidth: 1,
+              borderColor: '#eee',
+            }}
+            onPress={() => router.push(`/tareas/${item.id}`)} // ✅ navegación correcta
+          >
+            <Text style={{ fontSize: 18 }}>{item.titulo}</Text>
           </TouchableOpacity>
         )}
       />
